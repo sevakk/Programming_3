@@ -1,8 +1,6 @@
-class worsord {
+class worsord extends LivingCreature  {
     constructor(x, y, index) {
-        this.x = x;
-        this.y = y;
-        this.index = index;
+        super(x,y,index);  
         this.directions = [];
     }
     getNewCoordinates() {
@@ -109,22 +107,9 @@ class worsord {
             [this.x - 50, this.y]
         ];
     }
-    chooseCell(num) {
+    chooseCell(ch) {
         this.getNewCoordinates();
-        var found = [];
-        for (var i in this.directions) {
-            var x = this.directions[i][0];
-            var y = this.directions[i][1];
-            if (x >= 0 && x < matrix[0].length && y >= 0 && y < matrix.length) {
-                if (matrix[y][x] == num) {
-                    found.push([x, y]);
-                }
-                else if (matrix[y][x].index == num) {
-                    found.push([x, y]);
-                }
-            }
-        }
-        return found;
+        return super.chooseCell(ch);
     }
     krak() {
         var newCell = random(this.chooseCell(3));

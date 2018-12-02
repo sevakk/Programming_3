@@ -1,9 +1,8 @@
-class Bomb {
+class Bomb extends LivingCreature  {
     constructor(x, y, index) {
-        this.x = x;
-        this.y = y;
-        this.index = index;
+        super(x,y,index); 
         this.directions = [];
+        this.directions1 = [];
     }
     getNewCoordinates() {
         this.directions = [
