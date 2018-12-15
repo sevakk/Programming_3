@@ -9,6 +9,7 @@ var matrix = [
    [1, 1, 0, 0, 3]
 ];
 */
+
 var matrix = [];
 var side = 15;
 function setup() {
