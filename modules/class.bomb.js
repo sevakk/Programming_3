@@ -1,4 +1,10 @@
-var LivingCreature = requiere("./class.LivingCreature")
+var LivingCreature = require("./class.LivingCreature")
+function random(arr) {
+    var min = 0;
+    var max = arr.length-1;
+    var z = Math.floor(Math.random() * (max - min + 1)) + min;
+    return arr[z];
+}
 module.exports = class Bomb extends LivingCreature  {
     constructor(x, y, index) {
         super(x,y,index); 
@@ -39,7 +45,7 @@ module.exports = class Bomb extends LivingCreature  {
             [this.x, this.y + 1],
         ];
     }
-    chooseCell(num, num1, num2) {
+    chooseCell(num, num1, num2,matrix) {
         this.getNewCoordinates();
         var found = [];
         for (var i in this.directions1) {
@@ -56,9 +62,9 @@ module.exports = class Bomb extends LivingCreature  {
         }
         return found;
     }
-    bang() {
+    bang(matrix) {
         this.getNewCoordinates();
-        var Newcell = random(this.chooseCell(2, 3, 5));
+        var Newcell = random(this.chooseCell(2, 3, 5,matrix));
         if (Newcell) {
             for (var i in this.directions) {
                 var x = this.directions[i][0];

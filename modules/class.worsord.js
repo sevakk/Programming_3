@@ -1,4 +1,4 @@
-var LivingCreature = requiere("./class.LivingCreature")
+var LivingCreature = require("./class.LivingCreature")
 module.exports = class worsord extends LivingCreature  {
     constructor(x, y, index) {
         super(x,y,index);  

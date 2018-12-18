@@ -1,16 +1,57 @@
 var express = require('express');
-var path = require('path');
 var app = express();
 
+var server = require('http').Server(app);
 
-app.set('port', process.env.PORT || 3000);
-app.use(express.static(path.join(__dirname, 'public')));
+var io = require('socket.io')(server);
 
+app.use(express.static("./public"));
 
-var server = app.listen(app.get('port'), function() {
-  var port = server.address().port;
-  console.log('Magic happens on port ' + port);
+app.get('/', function (req, res) {
+   res.redirect('index.html');
 });
 
+server.listen(3000);
 
+var matrix = require("./modules/matrix");
 
+io.on('connection', function (socket) {
+  socket.emit("firstMatrix", matrix);
+});
+
+var time = frameRate(5);
+
+function frameRate(frameCount) {
+    return 1000 / frameCount;
+}
+
+function draw() {
+    for (var y = 0; y < matrix.length; y++) {
+        for (var x = 0; x < matrix[y].length; x++) {
+            if (matrix[y][x].index == 1) {
+                matrix[y][x].mul( matrix );
+            }
+            else if (matrix[y][x].index == 2) {
+                matrix[y][x].eat(matrix);
+            }
+            
+            else if (matrix[y][x].index == 3) {
+                matrix[y][x].eat(matrix);
+            }
+            
+            else if (matrix[y][x].index == 4) {
+                matrix[y][x].bang(matrix);
+            }
+            
+            else if (matrix[y][x].index == 5) {
+                matrix[y][x].blast();
+            }
+            /*
+            else if (matrix[y][x].index == 6) {
+                matrix[y][x].krak();
+            }*/
+        }
+    }
+}
+
+setInterval(draw, time);

@@ -1,4 +1,10 @@
-var LivingCreature = requiere("./class.LivingCreature")
+var LivingCreature = require("./class.LivingCreature")
+function random(arr) {
+    var min = 0;
+    var max = arr.length-1;
+    var z = Math.floor(Math.random() * (max - min + 1)) + min;
+    return arr[z];
+}
 module.exports = class Explosiveanimal extends LivingCreature  {
     constructor(x, y, index) {
         super(x,y,index);
@@ -64,7 +70,7 @@ module.exports = class Explosiveanimal extends LivingCreature  {
             [this.x + 2, this.y + 2]
         ];
     }
-    chooseCell(num, n) {
+    chooseCell(num, n,matrix) {
         this.getNewCoordinates();
         if (n == 0) {
             var direc = this.directions;
@@ -87,7 +93,7 @@ module.exports = class Explosiveanimal extends LivingCreature  {
         }
         return found;
     }
-    die() {
+    die(matrix) {
         this.getNewCoordinates();
         for (var i in this.directions2) {
             var x = this.directions2[i][0];
@@ -98,8 +104,8 @@ module.exports = class Explosiveanimal extends LivingCreature  {
             }
         }
     }
-    move() {
-        var cell = random(this.chooseCell(0, 0));
+    move(matrix) {
+        var cell = random(this.chooseCell(0, 0,matrix));
         if (this.acted == false) {
             if (cell) {
                 matrix[cell[1]][cell[0]] = matrix[this.y][this.x];
@@ -109,14 +115,14 @@ module.exports = class Explosiveanimal extends LivingCreature  {
                 this.acted = true;
                 this.energy--;
                 if (this.energy <= 0) {
-                    this.die();
+                    this.die(matrix);
                 }
             }
         }
     }
 
-    blast() {
-        var cell = random(this.chooseCell(3, 1));
+    blast(matrix) {
+        var cell = random(this.chooseCell(3, 1,matrix));
         this.getNewCoordinates();
         if (this.acted == false) {
             if (cell) {
@@ -131,12 +137,12 @@ module.exports = class Explosiveanimal extends LivingCreature  {
                 this.acted = true;
             }
             else {
-                this.eat();
+                this.eat(matrix);
             }
         }
     }
-    eat() {
-        var cell = random(this.chooseCell(1, 1));
+    eat(matrix) {
+        var cell = random(this.chooseCell(1, 1,matrix));
         if (this.acted == false) {
             if (cell) {
                 matrix[cell[1]][cell[0]] = matrix[this.y][this.x];
@@ -146,17 +152,17 @@ module.exports = class Explosiveanimal extends LivingCreature  {
                 this.acted = true;
                 this.energy++;
                 if (this.energy >= 20) {
-                    this.mul();
+                    this.mul(matrix);
                     this.energy = 6;
                 }
             }
             else {
-                this.move();
+                this.move(matrix);
             }
         }
     }
-    mul() {
-        var newCell = random(this.chooseCell(0, 1));
+    mul(matrix) {
+        var newCell = random(this.chooseCell(0, 1,matrix));
         if (newCell) {
             var newX = newCell[0];
             var newY = newCell[1];
