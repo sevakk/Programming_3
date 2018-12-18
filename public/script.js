@@ -24,12 +24,12 @@ function setup() {
                     else if (matrix[y][x].index == 2) {
                         fill(255, 255, 0);
                         rect(x * side, y * side, side, side);
-                        matrix[y][x].acted = false;
+                        //matrix[y][x].acted = false;
                     }
                     else if (matrix[y][x].index == 3) {
                         fill(255, 0, 0);
                         rect(x * side, y * side, side, side);
-                        matrix[y][x].acted = false;
+                        //matrix[y][x].acted = false;
                     }
                     else if (matrix[y][x].index == 4) {
                         fill(59, 90, 0);
@@ -38,7 +38,7 @@ function setup() {
                     else if (matrix[y][x].index == 5) {
                         fill(10, 20, 60);
                         rect(x * side, y * side, side, side);
-                        matrix[y][x].acted = false;
+                        //matrix[y][x].acted = false;
                     }
                     else if (matrix[y][x].index == 6) {
                         fill(255, 100, 0);

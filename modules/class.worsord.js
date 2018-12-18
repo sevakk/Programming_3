@@ -1,4 +1,10 @@
 var LivingCreature = require("./class.LivingCreature")
+function random(arr) {
+    var min = 0;
+    var max = arr.length-1;
+    var z = Math.floor(Math.random() * (max - min + 1)) + min;
+    return arr[z];
+}
 module.exports = class worsord extends LivingCreature  {
     constructor(x, y, index) {
         super(x,y,index);  
@@ -108,12 +114,12 @@ module.exports = class worsord extends LivingCreature  {
             [this.x - 50, this.y]
         ];
     }
-    chooseCell(ch) {
+    chooseCell(ch,matrix) {
         this.getNewCoordinates();
-        return super.chooseCell(ch);
+        return super.chooseCell(ch,matrix);
     }
-    krak() {
-        var newCell = random(this.chooseCell(3));
+    krak(matrix) {
+        var newCell = random(this.chooseCell(3,matrix));
         if (newCell) {
             var newX = newCell[0];
             var newY = newCell[1];

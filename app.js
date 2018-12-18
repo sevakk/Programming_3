@@ -44,12 +44,12 @@ function draw() {
             }
             
             else if (matrix[y][x].index == 5) {
-                matrix[y][x].blast();
+                matrix[y][x].blast(matrix);
             }
-            /*
+            
             else if (matrix[y][x].index == 6) {
-                matrix[y][x].krak();
-            }*/
+                matrix[y][x].krak(matrix);
+            }
         }
     }
 }
