@@ -9,6 +9,7 @@ module.exports = class worsord extends LivingCreature  {
     constructor(x, y, index) {
         super(x,y,index);  
         this.directions = [];
+        this.energy = 10;
     }
     getNewCoordinates() {
         this.directions = [
@@ -124,6 +125,13 @@ module.exports = class worsord extends LivingCreature  {
             var newX = newCell[0];
             var newY = newCell[1];
             matrix[newY][newX] = 0;
+            this.energy--;
+            if(this.energy == 0){
+                this.die(matrix);
+             }
         }
+    }
+    die(matrix) {
+        matrix[this.y][this.x] = 0;
     }
 }

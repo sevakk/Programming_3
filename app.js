@@ -50,6 +50,9 @@ function draw() {
             else if (matrix[y][x].index == 6) {
                 matrix[y][x].krak(matrix);
             }
+            else if (matrix[y][x].index == 7) {
+                matrix[y][x].creat(matrix);
+            }
         }
     }
 }

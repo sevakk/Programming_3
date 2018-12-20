@@ -36,7 +36,7 @@ module.exports = class GrassEater extends LivingCreature {
                 matrix[this.y][this.x] = 0;
                 this.x = cell[0];
                 this.y = cell[1];
-                this.acted = true;
+             //   this.acted = true;
                 this.energy--;
                 if (this.energy <= 0) {
                     this.die(matrix);
@@ -52,7 +52,7 @@ module.exports = class GrassEater extends LivingCreature {
                 matrix[this.y][this.x] = 0;
                 this.x = cell[0];
                 this.y = cell[1];
-                this.acted = true;
+               // this.acted = true;
                 this.energy++;
                 if (this.energy >= 14) {
                     this.mul(matrix);

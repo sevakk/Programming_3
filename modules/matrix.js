@@ -1,10 +1,11 @@
-var LivingCreature = require("./class.LivingCreature")
+
 var Grass = require("./class.grass")
 var GrassEater = require("./class.eatgrass")
 var Gishatich = require("./class.predator")
 var Explosiveanimal = require("./class.explosiveanimal")
 var Bomb = require("./class.bomb")
 var worsord = require("./class.worsord")
+var Charactercreator = require("./class.Charactercreator")
 
 function random(arr) {
     var min = 0;
@@ -20,7 +21,7 @@ var m = 50;
 for (var y = 0; y < n; y++) {
     matrix[y] = [];
     for (var x = 0; x < m; x++) {
-        matrix[y][x] = random([0, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 4, 5, 6]);
+        matrix[y][x] = random([0, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 4, 5, 6, 7]);
     }
 }
 
@@ -43,6 +44,9 @@ for (var y = 0; y < matrix.length; y++) {
         }
         else if (matrix[y][x] == 6) {
             matrix[y][x] = new worsord(x, y, 6);
+        }
+        else if (matrix[y][x] == 7) {
+            matrix[y][x] = new Charactercreator(x, y, 7);
         }
 
     }
