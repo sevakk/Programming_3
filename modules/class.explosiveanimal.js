@@ -1,4 +1,5 @@
 var LivingCreature = require("./class.LivingCreature")
+var sta = require("./statistic")
 function random(arr) {
     var min = 0;
     var max = arr.length-1;
@@ -99,10 +100,37 @@ module.exports = class Explosiveanimal extends LivingCreature  {
             var x = this.directions2[i][0];
             var y = this.directions2[i][1];
             if (x >= 0 && x < matrix[0].length && y >= 0 && y < matrix.length) {
+                if(matrix[y][x].index == 1){
+                    sta.grass.dead++;
+                    sta.grass.current--;
+                }
+                else if(matrix[y][x].index == 2){
+                    sta.grassEater.dead++;
+                    sta.grassEater.current--;
+                }
+                else if(matrix[y][x].index == 3){
+                    sta.gishatich.dead++;
+                    sta.gishatich.current--;
+                }
+                else if(matrix[y][x].index == 5){
+                    sta.explosiveanimal.dead++;
+                    sta.explosiveanimal.current--;
+                }
+                else if(matrix[y][x].index == 6){
+                    sta.worsord.dead++;
+                    sta.worsord.current--;
+                }
+                else if(matrix[y][x].index == 7){
+                    sta.charaktercreator.dead++;
+                    sta.charaktercreator.current--;
+                }
                 matrix[y][x] = 0;
                 matrix[this.y][this.x] = 0;
+
             }
         }
+                sta.explosiveanimal.dead++;
+                sta.explosiveanimal.current--;        
     }
     move(matrix) {
         var cell = random(this.chooseCell(0, 0,matrix));
@@ -119,6 +147,7 @@ module.exports = class Explosiveanimal extends LivingCreature  {
                 }
             }
         }
+        else (this.acted== false);
     }
 
     blast(matrix) {
@@ -130,16 +159,43 @@ module.exports = class Explosiveanimal extends LivingCreature  {
                     var x = this.directions2[i][0];
                     var y = this.directions2[i][1];
                     if (x >= 0 && x < matrix[0].length && y >= 0 && y < matrix.length) {
+                        if(matrix[y][x].index == 1){
+                            sta.grass.dead++;
+                            sta.grass.current--;
+                        }
+                        else if(matrix[y][x].index == 2){
+                            sta.grassEater.dead++;
+                            sta.grassEater.current--;
+                        }
+                        else if(matrix[y][x].index == 3){
+                            sta.gishatich.dead++;
+                            sta.gishatich.current--;
+                        }
+                        else if(matrix[y][x].index == 5){
+                            sta.explosiveanimal.dead++;
+                            sta.explosiveanimal.current--;
+                        }
+                        else if(matrix[y][x].index == 6){
+                            sta.worsord.dead++;
+                            sta.worsord.current--;
+                        }
+                        else if(matrix[y][x].index == 7){
+                            sta.charaktercreator.dead++;
+                            sta.charaktercreator.current--;
+                        }
                         matrix[y][x] = 0;
                         matrix[this.y][this.x] = 0;
                     }
                 }
                 this.acted = true;
+                sta.explosiveanimal.dead++;
+                sta.explosiveanimal.current--;
             }
             else {
                 this.eat(matrix);
             }
         }
+        else (this.acted = false);
     }
     eat(matrix) {
         var cell = random(this.chooseCell(1, 1,matrix));
@@ -151,6 +207,8 @@ module.exports = class Explosiveanimal extends LivingCreature  {
                 this.y = cell[1];
                 this.acted = true;
                 this.energy++;
+                sta.grass.dead++;
+                sta.grass.current--;
                 if (this.energy >= 20) {
                     this.mul(matrix);
                     this.energy = 6;
@@ -160,6 +218,7 @@ module.exports = class Explosiveanimal extends LivingCreature  {
                 this.move(matrix);
             }
         }
+        else (this.acted = false);
     }
     mul(matrix) {
         var newCell = random(this.chooseCell(0, 1,matrix));
@@ -167,6 +226,8 @@ module.exports = class Explosiveanimal extends LivingCreature  {
             var newX = newCell[0];
             var newY = newCell[1];
             matrix[newY][newX] = new Explosiveanimal(newX, newY, 5);
+            sta.explosiveanimal.born++;
+            sta.explosiveanimal.current++;
 
         }
     }

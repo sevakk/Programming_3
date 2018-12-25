@@ -1,4 +1,5 @@
 var LivingCreature = require("./class.LivingCreature")
+var sta = require("./statistic")
 function random(arr) {
     var min = 0;
     var max = arr.length-1;
@@ -9,7 +10,7 @@ module.exports = class worsord extends LivingCreature  {
     constructor(x, y, index) {
         super(x,y,index);  
         this.directions = [];
-        this.energy = 10;
+        this.energy = 7;
     }
     getNewCoordinates() {
         this.directions = [
@@ -126,6 +127,8 @@ module.exports = class worsord extends LivingCreature  {
             var newY = newCell[1];
             matrix[newY][newX] = 0;
             this.energy--;
+            sta.gishatich.dead++;
+            sta.gishatich.current--;
             if(this.energy == 0){
                 this.die(matrix);
              }
@@ -133,5 +136,7 @@ module.exports = class worsord extends LivingCreature  {
     }
     die(matrix) {
         matrix[this.y][this.x] = 0;
+        sta.worsord.dead++;
+        sta.worsord.current--;
     }
 }

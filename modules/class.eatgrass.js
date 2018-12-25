@@ -1,4 +1,5 @@
 var LivingCreature = require("./class.LivingCreature")
+var sta = require("./statistic")
 function random(arr) {
     var min = 0;
     var max = arr.length-1;
@@ -36,13 +37,14 @@ module.exports = class GrassEater extends LivingCreature {
                 matrix[this.y][this.x] = 0;
                 this.x = cell[0];
                 this.y = cell[1];
-             //   this.acted = true;
+                this.acted = true;
                 this.energy--;
                 if (this.energy <= 0) {
                     this.die(matrix);
                 }
             }
         }
+        else{this.acted = false} ;
     }
     eat(matrix) {
         var cell = random(this.chooseCell(1,matrix));
@@ -52,8 +54,10 @@ module.exports = class GrassEater extends LivingCreature {
                 matrix[this.y][this.x] = 0;
                 this.x = cell[0];
                 this.y = cell[1];
-               // this.acted = true;
+                this.acted = true;
                 this.energy++;
+                sta.grass.dead++;
+                sta.grass.current--;
                 if (this.energy >= 14) {
                     this.mul(matrix);
                     this.energy = 6;
@@ -63,6 +67,7 @@ module.exports = class GrassEater extends LivingCreature {
                 this.move(matrix);
             }
         }
+        else{this.acted = false} ;
     }
     mul(matrix) {
         var newCell = random(this.chooseCell(0,matrix));
@@ -70,10 +75,13 @@ module.exports = class GrassEater extends LivingCreature {
             var newX = newCell[0];
             var newY = newCell[1];
             matrix[newY][newX] = new GrassEater(newX, newY, 2);
-
+            sta.grassEater.born++;
+            sta.grassEater.current++;
         }
     }
     die(matrix) {
         matrix[this.y][this.x] = 0;
+        sta.grassEater.current--;
+        sta.grassEater.dead++;
     }
 }
