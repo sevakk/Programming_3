@@ -10,7 +10,7 @@ module.exports = class worsord extends LivingCreature  {
     constructor(x, y, index) {
         super(x,y,index);  
         this.directions = [];
-        this.energy = 7;
+        this.energy = 10;
     }
     getNewCoordinates() {
         this.directions = [
@@ -120,13 +120,13 @@ module.exports = class worsord extends LivingCreature  {
         this.getNewCoordinates();
         return super.chooseCell(ch,matrix);
     }
-    krak(matrix) {
+    krak(matrix,worsordenergy) {
         var newCell = random(this.chooseCell(3,matrix));
         if (newCell) {
             var newX = newCell[0];
             var newY = newCell[1];
             matrix[newY][newX] = 0;
-            this.energy--;
+            this.energy-= worsordenergy;
             sta.gishatich.dead++;
             sta.gishatich.current--;
             if(this.energy == 0){

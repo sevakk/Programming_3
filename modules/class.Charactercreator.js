@@ -15,7 +15,7 @@ function random(arr) {
             this.y = y;
             this.index = index;
             this.directions = [];
-            this.energy = 50;
+            this.energy = 60;
             this.multiply = 0;
         }
         getNewCoordinates() {

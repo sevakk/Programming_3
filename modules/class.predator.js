@@ -46,7 +46,7 @@ module.exports = class Gishatich extends LivingCreature  {
         return super.chooseCell(ch,matrix);
     }
 
-    move(matrix) {
+    move(matrix,predatorenergy) {
         var cell = random(this.chooseCell(0,matrix));
         if (this.acted == false) {
             if (cell) {
@@ -55,7 +55,7 @@ module.exports = class Gishatich extends LivingCreature  {
                 this.x = cell[0];
                 this.y = cell[1];
 
-                this.energy -= 2;
+                this.energy -= predatorenergy;
                 this.acted = true;
                 if (this.energy <= 0) {
                     this.die(matrix);
@@ -64,7 +64,7 @@ module.exports = class Gishatich extends LivingCreature  {
         }
         else (this.acted== false);
     }
-    eat(matrix) {
+    eat(matrix,predatormul,predatorenergy) {
         var cell = random(this.chooseCell(2,matrix));
         if (this.acted == false) {
             if (cell) {
@@ -76,13 +76,13 @@ module.exports = class Gishatich extends LivingCreature  {
                 this.acted = true;
                 sta.grassEater.current--;
                 sta.grassEater.dead++;
-                if (this.energy > 18) {
+                if (this.energy > predatormul) {
                     this.mul(matrix);
                     this.energy = 10;
                 }
             }
             else {
-                this.move(matrix);
+                this.move(matrix,predatorenergy);
             }
         }
         else (this.acted = false);
